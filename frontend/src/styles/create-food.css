@@ -1,0 +1,214 @@
+@import './theme.css';
+
+.create-food-page {
+  display: flex;
+  min-block-size: 100dvh;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem);
+  color: #192c29;
+  background:
+    radial-gradient(circle at 5% 6%, #d9e4cf 0 14rem, transparent 27rem),
+    radial-gradient(circle at 98% 92%, #f2c16d 0 10rem, transparent 22rem),
+    #f8f5ed;
+}
+
+.create-food-card {
+  inline-size: min(100%, 48rem);
+  align-self: flex-start;
+  margin-block: clamp(0.5rem, 5vw, 3rem);
+  padding: clamp(1.25rem, 5vw, 2.6rem);
+  border: 1px solid #d7dacd;
+  border-radius: 1.5rem;
+  background: rgb(255 250 241 / 92%);
+  box-shadow: 0 1.5rem 3.5rem rgb(44 70 60 / 14%);
+  backdrop-filter: blur(10px);
+}
+
+.create-food-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-block-end: clamp(1.6rem, 5vw, 2.5rem);
+}
+
+.create-food-kicker {
+  margin: 0 0 0.42rem;
+  color: #dc5531;
+  font-size: 0.67rem;
+  font-weight: 850;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.create-food-title {
+  margin: 0;
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 500;
+  letter-spacing: -0.065em;
+  line-height: 0.98;
+}
+
+.create-food-subtitle {
+  max-inline-size: 33rem;
+  margin: 0.7rem 0 0;
+  color: #5e6e68;
+  font-size: 0.9rem;
+  line-height: 1.55;
+}
+
+.create-food-dashboard-link {
+  flex: 0 0 auto;
+  padding: 0.62rem 0.8rem;
+  border: 1px solid #cbd3c7;
+  border-radius: 999px;
+  color: #294039;
+  background: #fffdf8;
+  font-size: 0.78rem;
+  font-weight: 800;
+}
+
+.create-food-dashboard-link:hover,
+.create-food-dashboard-link:focus-visible { border-color: #264e45; color: #fffaf1; background: #264e45; }
+
+.create-food-form { display: grid; gap: 1.35rem; }
+.create-food-form .field-group { display: grid; gap: 0.45rem; }
+
+.create-food-form .field-group > label {
+  color: #53645d;
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.create-food-form .field-group input[type='text'],
+.create-food-form .field-group textarea {
+  inline-size: 100%;
+  padding: 0.8rem 0.85rem;
+  border: 1px solid #d1d7cc;
+  border-radius: 0.72rem;
+  outline: none;
+  color: #192c29;
+  background: #fffdf8;
+  font: inherit;
+  transition: border-color 150ms ease, box-shadow 150ms ease, background 150ms ease;
+}
+
+.create-food-form .field-group textarea { min-block-size: 7rem; resize: vertical; }
+.create-food-form .field-group input::placeholder,
+.create-food-form .field-group textarea::placeholder { color: #9aa59d; }
+
+.create-food-form .field-group input:focus,
+.create-food-form .field-group textarea:focus {
+  border-color: #e95e38;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgb(233 94 56 / 15%);
+}
+
+.file-input-hidden {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+}
+
+.file-dropzone {
+  padding: clamp(1.75rem, 7vw, 3.6rem) 1rem;
+  border: 1.5px dashed #a9b9a9;
+  border-radius: 1rem;
+  background: linear-gradient(145deg, #f1f5e9, #fff9ef);
+  cursor: pointer;
+  transition: border-color 150ms ease, background 150ms ease, transform 150ms ease;
+}
+
+.file-dropzone:hover,
+.file-dropzone:focus-visible { border-color: #e95e38; background: #fff5ea; }
+.file-dropzone:active { transform: scale(0.99); }
+.file-dropzone:focus-visible { outline: 2px solid #e95e38; outline-offset: 3px; }
+
+.file-dropzone-inner { display: grid; place-items: center; gap: 0.55rem; color: #65756d; text-align: center; }
+.file-icon { color: #e95e38; }
+.file-dropzone-text { color: #294039; font-size: 0.92rem; }
+.file-dropzone-text strong { color: #c9492d; }
+.file-hint { color: #7a8982; font-size: 0.74rem; }
+
+.error-text { margin: 0; color: #c7442e; font-size: 0.8rem; font-weight: 650; }
+
+.file-chip {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  inline-size: 100%;
+  margin-block-start: 0.25rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid #d4decf;
+  border-radius: 0.75rem;
+  color: #294039;
+  background: #eef4e9;
+}
+
+.file-chip svg { flex: 0 0 auto; color: #e95e38; }
+.file-chip-name { overflow: hidden; font-size: 0.84rem; font-weight: 750; text-overflow: ellipsis; white-space: nowrap; }
+.file-chip-size { flex: 0 0 auto; margin-inline-start: auto; color: #6f7e77; font-size: 0.75rem; }
+.file-chip-actions { display: inline-flex; flex: 0 0 auto; gap: 0.2rem; }
+
+.btn-ghost {
+  padding: 0.35rem 0.45rem;
+  border: 0;
+  border-radius: 0.45rem;
+  color: #31594d;
+  background: transparent;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.74rem;
+  font-weight: 800;
+}
+
+.btn-ghost:hover,
+.btn-ghost:focus-visible { color: #fffaf1; background: #264e45; }
+.btn-ghost.danger { color: #c7442e; }
+.btn-ghost.danger:hover,
+.btn-ghost.danger:focus-visible { color: #fffaf1; background: #c7442e; }
+
+.video-preview {
+  overflow: hidden;
+  border: 1px solid #d7dacd;
+  border-radius: 1rem;
+  background: #192c29;
+}
+
+.video-preview-el { display: block; inline-size: 100%; max-block-size: 30rem; background: #192c29; object-fit: contain; }
+
+.form-actions { display: flex; gap: 0.75rem; padding-block-start: 0.25rem; }
+
+.create-food-form .btn-primary {
+  min-block-size: 2.9rem;
+  padding: 0.7rem 1.15rem;
+  border: 1px solid #192c29;
+  border-radius: 999px;
+  color: #fffaf1;
+  background: #192c29;
+  box-shadow: none;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.87rem;
+  font-weight: 800;
+  transition: transform 150ms ease, background 150ms ease, border-color 150ms ease;
+}
+
+.create-food-form .btn-primary:hover,
+.create-food-form .btn-primary:focus-visible { border-color: #e95e38; background: #e95e38; transform: translateY(-0.1rem); }
+.create-food-form .btn-primary:disabled { cursor: not-allowed; opacity: 0.58; transform: none; }
+
+@media (max-width: 520px) {
+  .create-food-page { padding: 0.75rem; }
+  .create-food-card { margin-block: 0; border-radius: 1.15rem; }
+  .create-food-header { flex-direction: column; }
+  .file-chip { align-items: flex-start; flex-wrap: wrap; }
+  .file-chip-size { margin-inline-start: 0; }
+  .file-chip-actions { inline-size: 100%; }
+}
