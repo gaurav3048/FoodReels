@@ -13,9 +13,9 @@ app.get("/", (req, res) => {
     res.send("Hello World");
 })
 app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-  }));
+    origin: "https://food-reels-gamma.vercel.app",
+    credentials: true
+}));
 app.use('/api/auth',authRoutes);
 app.use('/api/food',foodRoutes);
 app.use('/api/food-partner', foodPartnerRoutes);
