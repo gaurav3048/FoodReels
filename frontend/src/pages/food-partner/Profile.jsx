@@ -4,7 +4,7 @@ import axios from 'axios'
 import { getFoodPartnerId } from '../../utils/partnerSession'
 import '../../styles/profile.css'
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://foodreels-a3rq.onrender.com'
 
 const Profile = () => {
   const { id } = useParams()

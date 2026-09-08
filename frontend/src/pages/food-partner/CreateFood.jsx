@@ -4,7 +4,7 @@ import '../../styles/create-food.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { getFoodPartnerId, saveFoodPartnerId } from '../../utils/partnerSession';
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://foodreels-a3rq.onrender.com'
 
 const CreateFood = () => {
     const [ name, setName ] = useState('');

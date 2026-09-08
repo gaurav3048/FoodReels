@@ -20,7 +20,7 @@ const UserRegister = () => {
         const fullName = `${firstName} ${lastName}`.trim();
 
 
-        const response = await axios.post("http://localhost:3000/api/auth/user/register", {
+        const response = await axios.post("https://foodreels-a3rq.onrender.com/api/auth/user/register", {
             fullName,
             email,
             password
