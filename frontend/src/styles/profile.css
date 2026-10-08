@@ -298,6 +298,30 @@
 
 .profile-modal-actions { justify-content: end; gap: 0.65rem; margin-block-start: 0.35rem; }
 .profile-primary-button, .profile-danger-button, .profile-secondary-button { padding: 0.68rem 0.9rem; border-radius: 0.65rem; font-size: 0.85rem; }
+
+.profile-cart-link,
+.profile-add-to-cart {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.58rem 0.72rem;
+  border: 1px solid #264e45;
+  border-radius: 999px;
+  color: #fffaf1;
+  background: #264e45;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 800;
+}
+
+.profile-cart-link:hover,
+.profile-cart-link:focus-visible,
+.profile-add-to-cart:hover:not(:disabled),
+.profile-add-to-cart:focus-visible:not(:disabled) { color: #fffaf1; border-color: #e95e38; background: #e95e38; }
+.profile-add-to-cart:disabled { cursor: not-allowed; opacity: 0.55; }
+.profile-cart-notice { margin: 0 0 0.85rem; padding: 0.7rem 0.85rem; border-radius: 0.7rem; color: #285347; background: #e6f1e4; font-size: 0.82rem; font-weight: 700; }
+.profile-food-price { display: block; margin-block-start: 0.65rem; color: #c9492d; font-size: 0.9rem; }
 .profile-primary-button { color: #fff; background: var(--color-accent); }
 .profile-primary-button:hover, .profile-primary-button:focus-visible { background: var(--color-accent-hover); }
 .profile-secondary-button { color: var(--color-text); background: var(--color-surface-alt); }

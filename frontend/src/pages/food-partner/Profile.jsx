@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { getFoodPartnerId } from '../../utils/partnerSession'
+import { useCart } from '../../context/CartContext'
+import { formatINR } from '../../utils/money'
 import '../../styles/profile.css'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://foodreels-a3rq.onrender.com'
@@ -16,7 +18,10 @@ const Profile = () => {
   const [editingFood, setEditingFood] = useState(null)
   const [draftName, setDraftName] = useState('')
   const [draftDescription, setDraftDescription] = useState('')
+  const [draftPrice, setDraftPrice] = useState('')
   const [foodToDelete, setFoodToDelete] = useState(null)
+  const [cartNotice, setCartNotice] = useState('')
+  const { addItem, itemCount } = useCart()
 
   const isOwner = Boolean(id && getFoodPartnerId() === id)
 
@@ -54,6 +59,7 @@ const Profile = () => {
     setActionError('')
     setDraftName(foodItem.name || '')
     setDraftDescription(foodItem.description || '')
+    setDraftPrice(foodItem.price === undefined || foodItem.price === null ? '' : String(foodItem.price))
     setEditingFood(foodItem)
   }
 
@@ -61,7 +67,8 @@ const Profile = () => {
     event.preventDefault()
 
     const name = draftName.trim()
-    if (!name || !editingFood || pendingAction) return
+    const price = Number(draftPrice)
+    if (!name || !Number.isFinite(price) || price <= 0 || !editingFood || pendingAction) return
 
     const actionKey = `edit:${editingFood._id}`
     setPendingAction(actionKey)
@@ -70,14 +77,14 @@ const Profile = () => {
     try {
       const response = await axios.patch(
         `${API_BASE_URL}/api/food/${editingFood._id}`,
-        { name, description: draftDescription.trim() },
+        { name, description: draftDescription.trim(), price },
         { withCredentials: true },
       )
       const updatedFood = response.data?.food
 
       setFoodItems((currentItems) => currentItems.map((foodItem) => (
         foodItem._id === editingFood._id
-          ? { ...foodItem, ...updatedFood, name, description: draftDescription.trim() }
+          ? { ...foodItem, ...updatedFood, name, description: draftDescription.trim(), price }
           : foodItem
       )))
       setEditingFood(null)
@@ -112,6 +119,14 @@ const Profile = () => {
     }
   }
 
+  const addFoodToCart = (foodItem) => {
+    if (addItem(foodItem)) {
+      setCartNotice(`${foodItem.name || 'Food item'} was added to your cart.`)
+    } else {
+      setCartNotice('This food item needs a price before it can be ordered.')
+    }
+  }
+
   if (error) return <main className="profile-state" role="alert">{error}</main>
   if (!profile) return <main className="profile-state">Loading food partner...</main>
 
@@ -142,6 +157,9 @@ const Profile = () => {
               <span aria-hidden="true">+</span> Add food reel
             </Link>
           )}
+          {!isOwner && (
+            <Link className="profile-cart-link" to="/cart">Cart ({itemCount})</Link>
+          )}
         </div>
       </section>
 
@@ -155,6 +173,7 @@ const Profile = () => {
         </div>
 
         {actionError && <p className="profile-action-error" role="alert">{actionError}</p>}
+        {cartNotice && <p className="profile-cart-notice" role="status">{cartNotice}</p>}
 
         {foodItems.length ? (
           <div className="profile-grid">
@@ -175,6 +194,7 @@ const Profile = () => {
                 <div className="profile-food-info">
                   <h3>{foodItem.name || 'Untitled food'}</h3>
                   <p>{foodItem.description || 'No description added yet.'}</p>
+                  {Number(foodItem.price) > 0 && <strong className="profile-food-price">{formatINR(foodItem.price)}</strong>}
                   <div className="profile-card-footer">
                     <Link
                       className="profile-reel-link"
@@ -183,6 +203,16 @@ const Profile = () => {
                     >
                       Watch reel <span aria-hidden="true">↗</span>
                     </Link>
+                    {!isOwner && (
+                      <button
+                        className="profile-add-to-cart"
+                        type="button"
+                        disabled={!(Number(foodItem.price) > 0)}
+                        onClick={() => addFoodToCart(foodItem)}
+                      >
+                        {Number(foodItem.price) > 0 ? 'Add to cart' : 'Price unavailable'}
+                      </button>
+                    )}
                     {isOwner && (
                       <div className="profile-manage-actions" aria-label={`Manage ${foodItem.name || 'food reel'}`}>
                         <button className="profile-icon-button" type="button" onClick={() => openEditor(foodItem)} aria-label={`Edit ${foodItem.name || 'food reel'}`}>
@@ -229,9 +259,11 @@ const Profile = () => {
               <input id="edit-food-name" value={draftName} onChange={(event) => setDraftName(event.target.value)} required />
               <label htmlFor="edit-food-description">Description</label>
               <textarea id="edit-food-description" rows="5" value={draftDescription} onChange={(event) => setDraftDescription(event.target.value)} placeholder="Tell customers what makes it special" />
+              <label htmlFor="edit-food-price">Price (₹)</label>
+              <input id="edit-food-price" type="number" min="0.01" step="0.01" inputMode="decimal" value={draftPrice} onChange={(event) => setDraftPrice(event.target.value)} required />
               <div className="profile-modal-actions">
                 <button className="profile-secondary-button" type="button" onClick={() => setEditingFood(null)}>Cancel</button>
-                <button className="profile-primary-button" type="submit" disabled={pendingAction === editingAction || !draftName.trim()}>
+                <button className="profile-primary-button" type="submit" disabled={pendingAction === editingAction || !draftName.trim() || !(Number(draftPrice) > 0)}>
                   {pendingAction === editingAction ? 'Saving...' : 'Save changes'}
                 </button>
               </div>

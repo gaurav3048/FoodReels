@@ -6,11 +6,20 @@ const { v4: uuid } = require("uuid")
 
 
 async function createFood(req, res) {
+    const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
+    const description = typeof req.body.description === 'string' ? req.body.description.trim() : '';
+    const price = Number(req.body.price);
+
+    if (!name || !Number.isFinite(price) || price <= 0 || !req.file) {
+        return res.status(400).json({ message: 'A name, valid price, and video are required.' });
+    }
+
     const fileUploadResult = await storageService.uploadFile(req.file.buffer, uuid())
 
     const foodItem = await foodModel.create({
-        name: req.body.name,
-        description: req.body.description,
+        name,
+        description,
+        price: Math.round(price * 100) / 100,
         video: fileUploadResult.url,
         foodPartner: req.foodPartner._id
     })
@@ -34,14 +43,15 @@ async function updateFood(req, res) {
     const { foodId } = req.params;
     const name = typeof req.body.name === 'string' ? req.body.name.trim() : '';
     const description = typeof req.body.description === 'string' ? req.body.description.trim() : '';
+    const price = Number(req.body.price);
 
-    if (!name) {
-        return res.status(400).json({ message: "Food name is required" });
+    if (!name || !Number.isFinite(price) || price <= 0) {
+        return res.status(400).json({ message: "A food name and valid price are required" });
     }
 
     const food = await foodModel.findOneAndUpdate(
         { _id: foodId, foodPartner: req.foodPartner._id },
-        { name, description },
+        { name, description, price: Math.round(price * 100) / 100 },
         { new: true, runValidators: true }
     );
 

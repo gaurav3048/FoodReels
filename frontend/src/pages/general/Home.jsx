@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useSearchParams } from 'react-router-dom'
 import '../../styles/reels.css'
 import ReelFeed from '../../components/ReelFeed'
+import { useCart } from '../../context/CartContext'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://foodreels-a3rq.onrender.com'
 
@@ -19,6 +20,7 @@ const Home = () => {
   const [pendingAction, setPendingAction] = useState('')
   const [likedFoodIds, setLikedFoodIds] = useState([])
   const [savedFoodIds, setSavedFoodIds] = useState([])
+  const { addItem, itemCount } = useCart()
 
   useEffect(() => {
     const controller = new AbortController()
@@ -91,6 +93,8 @@ const Home = () => {
       items={videos}
       onLike={(item) => toggleFoodAction(item, 'like')}
       onSave={(item) => toggleFoodAction(item, 'save')}
+      onAddToCart={addItem}
+      cartItemCount={itemCount}
       selectedReelId={searchParams.get('reel') || ''}
       pendingAction={pendingAction}
       actionError={actionError}

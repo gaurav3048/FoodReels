@@ -10,6 +10,8 @@ import Landing from '../pages/general/Landing';
 import Saved from '../pages/general/Saved';
 import CreateFood from '../pages/food-partner/CreateFood';
 import Profile from '../pages/food-partner/Profile';
+import Cart from '../pages/general/Cart';
+import PaymentSuccess from '../pages/general/PaymentSuccess';
 import RequireUser from '../components/RequireUser';
 
 const AppRoutes = () => {
@@ -26,6 +28,8 @@ const AppRoutes = () => {
                 <Route path="/saved" element={<Saved />} />
                 <Route path="/create-food" element={<CreateFood />} />
                 <Route path="/food-partner/:id" element={<Profile />} />
+                <Route path="/cart" element={<RequireUser><Cart /></RequireUser>} />
+                <Route path="/payment/success" element={<RequireUser><PaymentSuccess /></RequireUser>} />
             </Routes>
         </Router>
     )

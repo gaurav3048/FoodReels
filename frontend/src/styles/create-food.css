@@ -84,6 +84,7 @@
 }
 
 .create-food-form .field-group input[type='text'],
+.create-food-form .field-group input[type='number'],
 .create-food-form .field-group textarea {
   inline-size: 100%;
   padding: 0.8rem 0.85rem;

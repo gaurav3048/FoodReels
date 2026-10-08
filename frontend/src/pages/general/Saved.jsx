@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import '../../styles/reels.css'
 import ReelFeed from '../../components/ReelFeed'
+import { useCart } from '../../context/CartContext'
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://foodreels-a3rq.onrender.com'
 
@@ -10,6 +11,7 @@ const Saved = () => {
   const [emptyMessage, setEmptyMessage] = useState('Loading saved videos...')
   const [actionError, setActionError] = useState('')
   const [pendingAction, setPendingAction] = useState('')
+  const { addItem, itemCount } = useCart()
 
   useEffect(() => {
     const controller = new AbortController()
@@ -69,6 +71,8 @@ const Saved = () => {
     <ReelFeed
       items={videos}
       onSave={removeSaved}
+      onAddToCart={addItem}
+      cartItemCount={itemCount}
       pendingAction={pendingAction}
       actionError={actionError}
       savedFoodIds={videos.map((video) => video._id)}

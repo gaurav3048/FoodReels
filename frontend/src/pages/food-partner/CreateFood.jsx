@@ -9,6 +9,7 @@ const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://foodreels-a3rq.onr
 const CreateFood = () => {
     const [ name, setName ] = useState('');
     const [ description, setDescription ] = useState('');
+    const [ price, setPrice ] = useState('');
     const [ videoFile, setVideoFile ] = useState(null);
     const [ videoURL, setVideoURL ] = useState('');
     const [ fileError, setFileError ] = useState('');
@@ -61,6 +62,7 @@ const CreateFood = () => {
 
         formData.append('name', name);
         formData.append('description', description);
+        formData.append('price', price);
         formData.append("video", videoFile);
 
         try {
@@ -85,7 +87,7 @@ const CreateFood = () => {
         }
     };
 
-    const isDisabled = useMemo(() => !name.trim() || !videoFile, [ name, videoFile ]);
+    const isDisabled = useMemo(() => !name.trim() || !videoFile || !Number.isFinite(Number(price)) || Number(price) <= 0, [ name, videoFile, price ]);
 
     return (
         <div className="create-food-page">
@@ -179,6 +181,21 @@ const CreateFood = () => {
                             placeholder="Write a short description: ingredients, taste, spice level, etc."
                             value={description}
                             onChange={(e) => setDescription(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="field-group">
+                        <label htmlFor="foodPrice">Price (₹)</label>
+                        <input
+                            id="foodPrice"
+                            type="number"
+                            min="0.01"
+                            step="0.01"
+                            inputMode="decimal"
+                            placeholder="e.g., 249.00"
+                            value={price}
+                            onChange={(e) => setPrice(e.target.value)}
+                            required
                         />
                     </div>
 
