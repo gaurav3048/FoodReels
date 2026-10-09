@@ -9,14 +9,16 @@ const paymentRoutes = require('./routes/payment.routes');
 const paymentController = require('./controllers/payment.controller');
 const cors = require('cors');
 const app = express();
-const allowedOrigins = (process.env.FRONTEND_URL || 'https://food-reels-gamma.vercel.app,http://localhost:5173')
+const defaultOrigins = 'https://food-reels-gamma.vercel.app,http://localhost:5173';
+const normalizeOrigin = (origin) => origin.trim().replace(/\/+$/, '');
+const allowedOrigins = `${defaultOrigins},${process.env.FRONTEND_URL || ''}`
     .split(',')
-    .map((origin) => origin.trim())
+    .map(normalizeOrigin)
     .filter(Boolean);
 
 app.use(cors({
     origin(origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) return callback(null, true);
+        if (!origin || allowedOrigins.includes(normalizeOrigin(origin))) return callback(null, true);
         return callback(new Error('Origin is not allowed by CORS'));
     },
     credentials: true

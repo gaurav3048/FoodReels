@@ -32,10 +32,17 @@ async function createFood(req, res) {
 }
 
 async function getFoodItems(req, res) {
-    const foodItems = await foodModel.find({})
+    const [foodItems, likes, saves] = await Promise.all([
+        foodModel.find({}),
+        likeModel.find({ user: req.user._id }).select('food'),
+        saveModel.find({ user: req.user._id }).select('food')
+    ]);
+
     res.status(200).json({
         message: "Food items fetched successfully",
-        foodItems
+        foodItems,
+        likedFoodIds: likes.map((like) => String(like.food)),
+        savedFoodIds: saves.map((save) => String(save.food))
     })
 }
 

@@ -11,6 +11,7 @@ const Saved = () => {
   const [emptyMessage, setEmptyMessage] = useState('Loading saved videos...')
   const [actionError, setActionError] = useState('')
   const [pendingAction, setPendingAction] = useState('')
+  const [cartNotice, setCartNotice] = useState('')
   const { addItem, itemCount } = useCart()
 
   useEffect(() => {
@@ -38,6 +39,19 @@ const Saved = () => {
     loadSavedFood()
     return () => controller.abort()
   }, [])
+
+  useEffect(() => {
+    if (!cartNotice) return undefined
+
+    const timer = window.setTimeout(() => setCartNotice(''), 2500)
+    return () => window.clearTimeout(timer)
+  }, [cartNotice])
+
+  const addFoodToCart = (item) => {
+    if (addItem(item)) {
+      setCartNotice(`${item.name || 'Food item'} added to cart.`)
+    }
+  }
 
   const removeSaved = async (item) => {
     const actionKey = `save:${item._id}`
@@ -71,8 +85,9 @@ const Saved = () => {
     <ReelFeed
       items={videos}
       onSave={removeSaved}
-      onAddToCart={addItem}
+      onAddToCart={addFoodToCart}
       cartItemCount={itemCount}
+      cartNotice={cartNotice}
       pendingAction={pendingAction}
       actionError={actionError}
       savedFoodIds={videos.map((video) => video._id)}

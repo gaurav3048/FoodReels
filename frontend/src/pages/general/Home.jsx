@@ -20,6 +20,7 @@ const Home = () => {
   const [pendingAction, setPendingAction] = useState('')
   const [likedFoodIds, setLikedFoodIds] = useState([])
   const [savedFoodIds, setSavedFoodIds] = useState([])
+  const [cartNotice, setCartNotice] = useState('')
   const { addItem, itemCount } = useCart()
 
   useEffect(() => {
@@ -33,6 +34,8 @@ const Home = () => {
           signal: controller.signal,
         })
         setVideos(Array.isArray(response.data.foodItems) ? response.data.foodItems : [])
+        setLikedFoodIds(Array.isArray(response.data.likedFoodIds) ? response.data.likedFoodIds : [])
+        setSavedFoodIds(Array.isArray(response.data.savedFoodIds) ? response.data.savedFoodIds : [])
       } catch (error) {
         if (error.code !== 'ERR_CANCELED') {
           setFeedError(error.response?.status === 401
@@ -45,6 +48,19 @@ const Home = () => {
     loadFood()
     return () => controller.abort()
   }, [])
+
+  useEffect(() => {
+    if (!cartNotice) return undefined
+
+    const timer = window.setTimeout(() => setCartNotice(''), 2500)
+    return () => window.clearTimeout(timer)
+  }, [cartNotice])
+
+  const addFoodToCart = (item) => {
+    if (addItem(item)) {
+      setCartNotice(`${item.name || 'Food item'} added to cart.`)
+    }
+  }
 
   const updateCount = (foodId, field, change) => {
     setVideos((currentVideos) => currentVideos.map((video) => (
@@ -93,8 +109,9 @@ const Home = () => {
       items={videos}
       onLike={(item) => toggleFoodAction(item, 'like')}
       onSave={(item) => toggleFoodAction(item, 'save')}
-      onAddToCart={addItem}
+      onAddToCart={addFoodToCart}
       cartItemCount={itemCount}
+      cartNotice={cartNotice}
       selectedReelId={searchParams.get('reel') || ''}
       pendingAction={pendingAction}
       actionError={actionError}

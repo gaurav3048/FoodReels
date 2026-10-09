@@ -13,12 +13,11 @@
 }
 
 .reels-cart-link {
-  position: fixed;
-  z-index: 10;
-  inset: calc(env(safe-area-inset-top, 0px) + 0.85rem) calc(env(safe-area-inset-right, 0px) + 0.85rem) auto auto;
   display: inline-flex;
+  align-self: flex-start;
   align-items: center;
   gap: 0.38rem;
+  margin-block-start: 0.05rem;
   padding: 0.55rem 0.7rem;
   border: 1px solid rgb(255 250 241 / 38%);
   border-radius: 999px;
@@ -33,6 +32,23 @@
 .reels-cart-link:hover,
 .reels-cart-link:focus-visible { color: #fffaf1; background: #e95e38; }
 .reels-cart-link span { display: grid; min-inline-size: 1.05rem; block-size: 1.05rem; place-items: center; border-radius: 50%; color: #192c29; background: #f3c475; font-size: 0.65rem; }
+
+.reel-cart-notice {
+  position: fixed;
+  z-index: 10;
+  inset: calc(env(safe-area-inset-top, 0px) + 0.85rem) auto auto calc(env(safe-area-inset-left, 0px) + 0.85rem);
+  max-inline-size: min(18rem, calc(100vw - 9rem));
+  margin: 0;
+  padding: 0.62rem 0.82rem;
+  border: 1px solid rgb(255 250 241 / 38%);
+  border-radius: 0.7rem;
+  color: #fffaf1;
+  background: rgb(25 44 41 / 82%);
+  box-shadow: 0 0.5rem 1rem rgb(0 0 0 / 20%);
+  font-size: 0.78rem;
+  font-weight: 750;
+  backdrop-filter: blur(8px);
+}
 
 .reels-feed {
   inline-size: 100%;
