@@ -132,24 +132,31 @@ const ReelFeed = ({
                 <span className="reel-category">Food reel</span>
                 <h1 className="reel-title">{item.name || 'Untitled food'}</h1>
                 {item.description && <p className="reel-description" title={item.description}>{item.description}</p>}
-                {canOrder && <p className="reel-price">{formatINR(price)}</p>}
                 {onAddToCart && (
-                  <button
-                    className="reel-cart-button"
-                    type="button"
-                    onClick={() => onAddToCart(item)}
-                    disabled={!canOrder}
-                  >
-                    {canOrder ? 'Add to cart' : 'Price unavailable'}
-                  </button>
+                  <div className="reel-order-card" aria-label="Order this dish">
+                    <div className="reel-order-summary">
+                      <span className="reel-order-label">Ready to order</span>
+                      <strong className="reel-price">{canOrder ? formatINR(price) : 'Price unavailable'}</strong>
+                    </div>
+                    <div className="reel-order-actions">
+                      <button
+                        className="reel-cart-button"
+                        type="button"
+                        onClick={() => onAddToCart(item)}
+                        disabled={!canOrder}
+                      >
+                        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                          <path d="M3 3h2l.45 2.25M7 13h10l4-8H5.45M7 13 5.45 5.25M7 13l-1 3a2 2 0 0 0 2 2h9" />
+                          <circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" />
+                        </svg>
+                        Add to cart
+                      </button>
+                      <Link className="reels-cart-link" to="/cart" aria-label={`View cart with ${cartItemCount} items`}>
+                        Cart <span>{cartItemCount}</span>
+                      </Link>
+                    </div>
+                  </div>
                 )}
-                <Link className="reel-cart-link" to="/cart" aria-label={`View cart with ${cartItemCount} items`}>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                    <path d="M3 3h2l.45 2.25M7 13h10l4-8H5.45M7 13 5.45 5.25M7 13l-1 3a2 2 0 0 0 2 2h9" />
-                    <circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" />
-                  </svg>
-                  View cart <span>{cartItemCount}</span>
-                </Link>
                 {item.foodPartner && (() => {
                   const foodPartnerId = typeof item.foodPartner === 'object'
                     ? item.foodPartner._id

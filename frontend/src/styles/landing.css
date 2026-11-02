@@ -111,6 +111,27 @@
 
 .landing-hero-actions { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-block-start: 2rem; }
 
+.landing-payment-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  margin: 1rem 0 0;
+  color: #5b6d65;
+  font-size: 0.76rem;
+  font-weight: 750;
+}
+
+.landing-payment-note span {
+  display: grid;
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #fffaf1;
+  background: #264e45;
+  font-size: 0.65rem;
+}
+
 .landing-button,
 .landing-card-link {
   display: inline-flex;

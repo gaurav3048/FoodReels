@@ -23,13 +23,14 @@ const Landing = () => {
         <div className="landing-hero-copy">
           <p className="landing-eyebrow"><span aria-hidden="true">&#10022;</span> Made for food people</p>
           <h1 id="landing-title">Find your next <em>favourite</em> bite.</h1>
-          <p className="landing-lede">FoodReels brings together crave-worthy food videos and the local partners who make them. Scroll, discover, and save the dishes you want to try.</p>
+          <p className="landing-lede">FoodReels brings together crave-worthy food videos and the local partners who make them. Scroll, discover, save your favourites, add them to cart, and check out securely when you are ready.</p>
           <div className="landing-hero-actions">
             <Link className="landing-button landing-button--primary" to={isUserSignedIn ? '/explore' : '/user/login'}>
               {isUserSignedIn ? 'Explore food reels' : 'Sign in to explore'} <span aria-hidden="true">&rarr;</span>
             </Link>
             <a className="landing-button landing-button--quiet" href="#about">How it works</a>
           </div>
+          <p className="landing-payment-note"><span aria-hidden="true">✓</span> Secure checkout powered by Razorpay</p>
         </div>
 
         <div className="landing-showcase" aria-label="A preview of food reels">
@@ -49,11 +50,11 @@ const Landing = () => {
           </article>
           <div className="landing-mini-card landing-mini-card--one">
             <span aria-hidden="true">&#x1F96D;</span>
-            <div><strong>Fresh finds</strong><small>New near you</small></div>
+            <div><strong>Fresh finds</strong><small>Watch, add &amp; order</small></div>
           </div>
           <div className="landing-mini-card landing-mini-card--two">
             <span className="landing-mini-play" aria-hidden="true">&gt;</span>
-            <div><strong>Short food videos</strong><small>Watch. Save. Go.</small></div>
+            <div><strong>Short food videos</strong><small>Watch. Save. Order.</small></div>
           </div>
         </div>
       </section>
@@ -68,7 +69,7 @@ const Landing = () => {
           <div className="landing-value-list">
             <div><span>01</span><strong>Watch real food reels</strong></div>
             <div><span>02</span><strong>Save dishes for later</strong></div>
-            <div><span>03</span><strong>Meet local food partners</strong></div>
+            <div><span>03</span><strong>Add to cart and pay securely</strong></div>
           </div>
         </div>
       </section>
@@ -84,7 +85,7 @@ const Landing = () => {
             <span className="landing-account-icon" aria-hidden="true">&#8981;</span>
             <p className="landing-card-label">For food lovers</p>
             <h3>Discover what to eat next.</h3>
-            <p>Watch food reels, save favourites, and keep your next craving close.</p>
+            <p>Watch food reels, save favourites, add dishes to your cart, and pay securely through Razorpay.</p>
             <div className="landing-account-actions">
               <Link className="landing-card-link" to="/user/login">User login</Link>
               <Link className="landing-card-link landing-card-link--outline" to="/user/register">User register</Link>
