@@ -1,7 +1,10 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { getUserId, USER_SESSION_CHANGED_EVENT } from '../utils/userSession'
 
-const CART_STORAGE_KEY = 'foodReelsCart'
+const CART_STORAGE_KEY_PREFIX = 'foodReelsCart'
 const CartContext = createContext(null)
+
+const getCartStorageKey = (userId) => `${CART_STORAGE_KEY_PREFIX}:${userId}`
 
 const isValidCartItem = (item) => {
   const price = Number(item?.price)
@@ -17,9 +20,11 @@ const isValidCartItem = (item) => {
     && quantity <= 10
 }
 
-const loadCart = () => {
+const loadCart = (userId) => {
+  if (!userId) return []
+
   try {
-    const storedCart = JSON.parse(window.localStorage.getItem(CART_STORAGE_KEY) || '[]')
+    const storedCart = JSON.parse(window.localStorage.getItem(getCartStorageKey(userId)) || '[]')
     return Array.isArray(storedCart) ? storedCart.filter(isValidCartItem) : []
   } catch {
     return []
@@ -27,14 +32,29 @@ const loadCart = () => {
 }
 
 export const CartProvider = ({ children }) => {
-  const [items, setItems] = useState(loadCart)
+  const [userId, setUserId] = useState(getUserId)
+  const [items, setItems] = useState(() => loadCart(getUserId()))
 
   useEffect(() => {
-    window.localStorage.setItem(CART_STORAGE_KEY, JSON.stringify(items))
-  }, [items])
+    const syncCartWithSession = () => {
+      const nextUserId = getUserId()
+      setUserId(nextUserId)
+      setItems(loadCart(nextUserId))
+    }
+
+    window.addEventListener(USER_SESSION_CHANGED_EVENT, syncCartWithSession)
+    return () => window.removeEventListener(USER_SESSION_CHANGED_EVENT, syncCartWithSession)
+  }, [])
+
+  useEffect(() => {
+    if (!userId) return
+    window.localStorage.setItem(getCartStorageKey(userId), JSON.stringify(items))
+  }, [items, userId])
 
   const value = useMemo(() => {
     const addItem = (food) => {
+      if (!userId) return false
+
       const price = Number(food?.price)
       const foodId = typeof food?._id === 'string' ? food._id : ''
 
@@ -94,7 +114,7 @@ export const CartProvider = ({ children }) => {
       removeItem,
       clearCart,
     }
-  }, [items])
+  }, [items, userId])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
