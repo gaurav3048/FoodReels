@@ -21,12 +21,12 @@ const Landing = () => {
 
       <section className="landing-hero" aria-labelledby="landing-title">
         <div className="landing-hero-copy">
-          <p className="landing-eyebrow"><span aria-hidden="true">&#10022;</span> Made for food people</p>
-          <h1 id="landing-title">Find your next <em>favourite</em> bite.</h1>
-          <p className="landing-lede">FoodReels brings together crave-worthy food videos and the local partners who make them. Scroll, discover, save your favourites, add them to cart, and check out securely when you are ready.</p>
+          <p className="landing-eyebrow"><span aria-hidden="true">&#10022;</span> Watch it. Crave it. Order it.</p>
+          <h1 id="landing-title">See the food. <em>Order</em> what you love.</h1>
+          <p className="landing-lede">Watch real food reels from local kitchens, find the dish that makes you stop scrolling, and order it in just a few taps.</p>
           <div className="landing-hero-actions">
             <Link className="landing-button landing-button--primary" to={isUserSignedIn ? '/explore' : '/user/login'}>
-              {isUserSignedIn ? 'Explore food reels' : 'Sign in to explore'} <span aria-hidden="true">&rarr;</span>
+              {isUserSignedIn ? 'Watch food reels' : 'Sign in to start watching'} <span aria-hidden="true">&rarr;</span>
             </Link>
             <a className="landing-button landing-button--quiet" href="#about">How it works</a>
           </div>
@@ -42,19 +42,19 @@ const Landing = () => {
             </div>
             <div className="landing-feature-details">
               <div>
-                <p>Tonight's craving</p>
+                <p>Trending near you · ₹249</p>
                 <strong>Chilli garlic ramen</strong>
               </div>
-              <span className="landing-heart" aria-label="Liked">&#9825;</span>
+              <span className="landing-heart" aria-label="Add to cart">+</span>
             </div>
           </article>
           <div className="landing-mini-card landing-mini-card--one">
             <span aria-hidden="true">&#x1F96D;</span>
-            <div><strong>Fresh finds</strong><small>Watch, add &amp; order</small></div>
+            <div><strong>Fresh finds</strong><small>See it. Add it. Eat it.</small></div>
           </div>
           <div className="landing-mini-card landing-mini-card--two">
             <span className="landing-mini-play" aria-hidden="true">&gt;</span>
-            <div><strong>Short food videos</strong><small>Watch. Save. Order.</small></div>
+            <div><strong>Order from reels</strong><small>Your next meal is a tap away</small></div>
           </div>
         </div>
       </section>
@@ -62,14 +62,14 @@ const Landing = () => {
       <section className="landing-about" id="about" aria-labelledby="about-title">
         <div>
           <p className="landing-section-label">Why FoodReels</p>
-          <h2 id="about-title">A simple way to discover food worth leaving home for.</h2>
+          <h2 id="about-title">From a food reel to your cart in a few taps.</h2>
         </div>
         <div className="landing-about-copy">
-          <p>Skip the endless search. FoodReels lets you see the texture, portion, and personality behind every dish before you decide where to eat.</p>
+          <p>Skip guesswork and menus that do not show the real dish. FoodReels lets you watch the texture, portion, and personality of a meal before choosing what to order.</p>
           <div className="landing-value-list">
             <div><span>01</span><strong>Watch real food reels</strong></div>
-            <div><span>02</span><strong>Save dishes for later</strong></div>
-            <div><span>03</span><strong>Add to cart and pay securely</strong></div>
+            <div><span>02</span><strong>Add the dishes you love to cart</strong></div>
+            <div><span>03</span><strong>Pay securely and enjoy</strong></div>
           </div>
         </div>
       </section>
@@ -84,8 +84,8 @@ const Landing = () => {
           <article className="landing-account-card">
             <span className="landing-account-icon" aria-hidden="true">&#8981;</span>
             <p className="landing-card-label">For food lovers</p>
-            <h3>Discover what to eat next.</h3>
-            <p>Watch food reels, save favourites, add dishes to your cart, and pay securely through Razorpay.</p>
+            <h3>Watch it, then order it.</h3>
+            <p>See real dishes in motion, add the ones you love to cart, and complete your order through secure Razorpay checkout.</p>
             <div className="landing-account-actions">
               <Link className="landing-card-link" to="/user/login">User login</Link>
               <Link className="landing-card-link landing-card-link--outline" to="/user/register">User register</Link>
@@ -106,7 +106,7 @@ const Landing = () => {
 
       <footer className="landing-footer">
         <Link className="landing-brand" to="/"><span className="landing-brand-mark" aria-hidden="true">F</span><span>FoodReels</span></Link>
-        <span>Discover food, one reel at a time.</span>
+        <span>Watch food. Love a dish. Order it.</span>
       </footer>
     </main>
   )
