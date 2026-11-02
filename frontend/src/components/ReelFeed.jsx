@@ -63,7 +63,22 @@ const ReelFeed = ({
 
   return (
     <div className="reels-page">
-      {cartNotice && <p className="reel-cart-notice" role="status">{cartNotice}</p>}
+      <header className="reels-header">
+        <Link className="reels-brand" to="/explore" aria-label="FoodReels home">
+          <span aria-hidden="true">F</span> FoodReels
+        </Link>
+        <Link className="reels-saved-link" to="/saved">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1z" />
+          </svg>
+          Saved reels
+        </Link>
+      </header>
+      {cartNotice && (
+        <p className="reel-cart-notice" role="status">
+          <span aria-hidden="true">✓</span>{cartNotice}
+        </p>
+      )}
       <div className="reels-feed" role="list">
         {items.length === 0 && (
           <div className="empty-state">

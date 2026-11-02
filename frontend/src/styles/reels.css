@@ -12,6 +12,56 @@
     #f8f5ed;
 }
 
+.reels-header {
+  position: fixed;
+  z-index: 12;
+  inset: calc(env(safe-area-inset-top, 0px) + 0.8rem) 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  inline-size: min(100% - 1.5rem, 28rem);
+  margin-inline: auto;
+  pointer-events: none;
+}
+
+.reels-brand,
+.reels-saved-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+  min-block-size: 2.2rem;
+  padding-inline: 0.65rem;
+  border: 1px solid rgb(255 250 241 / 34%);
+  border-radius: 999px;
+  color: #fffaf1;
+  background: rgb(25 44 41 / 64%);
+  box-shadow: 0 0.45rem 1rem rgb(0 0 0 / 16%);
+  font-size: 0.72rem;
+  font-weight: 800;
+  backdrop-filter: blur(10px);
+  pointer-events: auto;
+}
+
+.reels-brand:hover,
+.reels-brand:focus-visible,
+.reels-saved-link:hover,
+.reels-saved-link:focus-visible { color: #fffaf1; background: #e95e38; }
+
+.reels-brand span {
+  display: grid;
+  inline-size: 1.2rem;
+  block-size: 1.2rem;
+  place-items: center;
+  border-radius: 50% 50% 50% 0.2rem;
+  color: #fffaf1;
+  background: #e95e38;
+  font-family: Georgia, serif;
+  font-size: 0.77rem;
+  font-style: italic;
+}
+
+.reels-saved-link svg { color: #f3c475; }
+
 .reels-cart-link {
   display: inline-flex;
   align-items: center;
@@ -37,10 +87,15 @@
 
 .reel-cart-notice {
   position: fixed;
-  z-index: 10;
-  inset: calc(env(safe-area-inset-top, 0px) + 0.85rem) auto auto calc(env(safe-area-inset-left, 0px) + 0.85rem);
-  max-inline-size: min(18rem, calc(100vw - 9rem));
+  z-index: 13;
+  inset: calc(env(safe-area-inset-top, 0px) + 3.65rem) 1rem auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  max-inline-size: min(22rem, calc(100vw - 2rem));
   margin: 0;
+  margin-inline: auto;
   padding: 0.62rem 0.82rem;
   border: 1px solid rgb(255 250 241 / 38%);
   border-radius: 0.7rem;
@@ -50,6 +105,24 @@
   font-size: 0.78rem;
   font-weight: 750;
   backdrop-filter: blur(8px);
+  animation: reel-notice-in 180ms ease-out both;
+}
+
+.reel-cart-notice span {
+  display: grid;
+  flex: 0 0 auto;
+  inline-size: 1.1rem;
+  block-size: 1.1rem;
+  place-items: center;
+  border-radius: 50%;
+  color: #192c29;
+  background: #f3c475;
+  font-size: 0.68rem;
+}
+
+@keyframes reel-notice-in {
+  from { opacity: 0; transform: translateY(-0.4rem) scale(0.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .reels-feed {

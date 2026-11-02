@@ -43,7 +43,7 @@ const Saved = () => {
   useEffect(() => {
     if (!cartNotice) return undefined
 
-    const timer = window.setTimeout(() => setCartNotice(''), 2500)
+    const timer = window.setTimeout(() => setCartNotice(''), 3000)
     return () => window.clearTimeout(timer)
   }, [cartNotice])
 
